@@ -13,6 +13,7 @@ class TestAddContact(unittest.TestCase):
         wd.get("http://localhost/addressbook/edit.php")
 
     def login(self, wd, username, password):
+        self.open_home_page(wd)
         # login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
@@ -71,7 +72,6 @@ class TestAddContact(unittest.TestCase):
 
     def test_add_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_contact(wd, Contact(firstname="fn", middlename="mn", lastname="ln", nickname="nn", title="t",
                                         company="c",
@@ -83,7 +83,6 @@ class TestAddContact(unittest.TestCase):
 
     def test_add_empty_contact(self):
         wd = self.wd
-        self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.create_contact(wd, Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
                                         address="", homenumber="", mobilenumber="", worknumber="", faxnumber="",
