@@ -5,18 +5,18 @@ def test_add_contact(app):
     app.session.login(username="admin", password="secret")
     app.contact.create(Contact(firstname="fn", middlename="mn", lastname="ln", nickname="nn", title="t",
                                company="c",
-                               address="a", homenumber="1", mobilenumber="2", worknumber="3", faxnumber="4",
-                               email1="m1",
+                               address="a", home="1", mobile="2", work="3", fax="4",
+                               email="m1",
                                email2="m2", email3="m3", homepage="h", address2="sa",
-                               home2="sh", notes="sn"))
+                               phone2="sh", notes="sn"))
     app.session.logout()
 
 
 def test_add_empty_contact(app):
     app.session.login(username="admin", password="secret")
     app.contact.create(Contact(firstname="", middlename="", lastname="", nickname="", title="", company="",
-                               address="", homenumber="", mobilenumber="", worknumber="", faxnumber="",
-                               email1="",
+                               address="", home="", mobile="", work="", fax="",
+                               email="",
                                email2="", email3="", homepage="", address2="",
-                               home2="", notes=""))
+                               phone2="", notes=""))
     app.session.logout()
