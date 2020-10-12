@@ -7,9 +7,8 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def create(self, contact):
+    def insert_data_contact(self, contact):
         wd = self.app.wd
-        self.open_add_new_contact_page()
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -52,6 +51,11 @@ class ContactHelper:
         wd.find_element_by_name("phone2").send_keys(contact.home2)
         wd.find_element_by_name("notes").clear()
         wd.find_element_by_name("notes").send_keys(contact.notes)
+
+    def create(self, contact):
+        wd = self.app.wd
+        self.open_add_new_contact_page()
+        self.insert_data_contact(contact)
         wd.find_element_by_xpath("(//input[@name='submit'])[2]").click()
         self.return_to_home_page()
 
@@ -66,15 +70,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        self.insert_data_contact(contact)
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
 
