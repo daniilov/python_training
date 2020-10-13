@@ -6,7 +6,7 @@ class ContactHelper:
     def open_home_page(self):
         wd = self.app.wd
         if not wd.current_url.endswith("addressbook/"):
-            wd.find_element_by_link_text("home").click()
+            self.select_home_page()
 
     def open_add_new_contact_page(self):
         wd = self.app.wd
@@ -66,6 +66,10 @@ class ContactHelper:
         self.return_to_home_page()
 
     def return_to_home_page(self):
+        wd = self.app.wd
+        self.select_home_page()
+
+    def select_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
 
