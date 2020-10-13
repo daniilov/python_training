@@ -66,7 +66,6 @@ class ContactHelper:
         self.return_to_home_page()
 
     def return_to_home_page(self):
-        wd = self.app.wd
         self.select_home_page()
 
     def select_home_page(self):
