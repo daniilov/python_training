@@ -1,5 +1,5 @@
-import re
 from random import randrange
+import re
 
 
 def test_contact_on_home_page(app):
