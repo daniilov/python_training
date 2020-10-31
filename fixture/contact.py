@@ -24,11 +24,11 @@ class ContactHelper:
 
     def fill_contact_form(self, contact):
         self.change_field("firstname", contact.firstname)
-        self.change_field("middlename", contact.middlename)
+        # self.change_field("middlename", contact.middlename)
         self.change_field("lastname", contact.lastname)
-        self.change_field("nickname", contact.nickname)
-        self.change_field("title", contact.title)
-        self.change_field("company", contact.company)
+        # self.change_field("nickname", contact.nickname)
+        # self.change_field("title", contact.title)
+        # self.change_field("company", contact.company)
         self.change_field("address", contact.address)
         self.change_field("home", contact.home)
         self.change_field("mobile", contact.mobile)
@@ -37,10 +37,10 @@ class ContactHelper:
         self.change_field("email", contact.email)
         self.change_field("email2", contact.email2)
         self.change_field("email3", contact.email3)
-        self.change_field("homepage", contact.homepage)
-        self.change_field("address2", contact.address2)
-        self.change_field("phone2", contact.phone2)
-        self.change_field("notes", contact.notes)
+        # self.change_field("homepage", contact.homepage)
+        # self.change_field("address2", contact.address2)
+        # self.change_field("phone2", contact.phone2)
+        # self.change_field("notes", contact.notes)
 
     def create(self, contact):
         wd = self.app.wd
@@ -75,7 +75,7 @@ class ContactHelper:
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+        self.open_contact_to_edit_by_index(index)
         self.fill_contact_form(new_contact_data)
         wd.find_element_by_name("update").click()
         self.return_to_home_page()
@@ -106,3 +106,13 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return list(self.contact_cache)
+
+    def open_contact_to_edit_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_elements_by_xpath("//img[@alt='Details']")[index].click()
