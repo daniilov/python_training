@@ -2,7 +2,7 @@ from model.contact import Contact
 from random import randrange
 
 
-def test_modify_contact_firstname(app):
+def test_edit_contact_firstname(app):
     if app.contact.count() == 0:
         app.contact.create(
             Contact(firstname="test1", lastname="test2", address="test3", homephone="test4", email="test5"))
