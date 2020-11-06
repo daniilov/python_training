@@ -34,10 +34,10 @@
   {
     "py/object": "model.contact.Contact",
     "firstname": "firstnameq({",
-    "lastname": "lastname\\",
+    "lastname": "lastname",
     "address": "addressQC&3R",
     "id": null,
-    "homephone": "homephoneH0Qt#eD h",
+    "homephone": "homephoneH0Qt#eD",
     "mobilephone": null,
     "workphone": null,
     "secondaryphone": null,
