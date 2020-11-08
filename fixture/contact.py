@@ -46,6 +46,15 @@ class ContactHelper:
         self.return_to_main_page()
         self.contact_cache = None
 
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.return_to_main_page()
+        self.contact_cache = None
+
     def edit_first_contact(self):
         self.edit_contact_by_index(0)
 
@@ -53,6 +62,15 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         self.open_contact_to_edit_by_index(index)
+        self.fill_contact_form(contact)
+        wd.find_element_by_name("update").click()
+        self.return_to_main_page()
+        self.contact_cache = None
+
+    def edit_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_home_page()
+        self.open_contact_to_edit_by_id(id)
         self.fill_contact_form(contact)
         wd.find_element_by_name("update").click()
         self.return_to_main_page()
@@ -96,6 +114,11 @@ class ContactHelper:
         self.open_home_page()
         wd.find_elements_by_xpath("//img[@alt='Details']")[index].click()
 
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']" % id).click()
+
     def get_contact_from_edit_page(self, index):
         wd = self.app.wd
         self.open_contact_to_edit_by_index(index)
@@ -113,3 +136,38 @@ class ContactHelper:
         return Contact(firstname=firstname, lastname=lastname, address=address, id=id,
                        email=email, email2=email2, email3=email3, homephone=homephone,
                        workphone=workphone, mobilephone=mobilephone, secondaryphone=secondaryphone)
+
+    def add_contact_to_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.visible_all_contact()
+        wd.find_element_by_css_selector("input[value='%s']" % contact_id).click()
+        self.choice_group(group_id)
+        self.return_to_main_page()
+        self.visible_all_contact()
+
+    def visible_all_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("group")
+        if not wd.find_element_by_xpath("//option[@value='']"):
+            wd.find_element_by_xpath("//option[@value='']").click()
+
+    def choice_group(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_xpath("(//option[@value='%s'])[2]" % group_id).click()
+        wd.find_element_by_name("add").click()
+
+    def remove_contact_from_group(self, contact_id, group_id):
+        wd = self.app.wd
+        self.open_home_page()
+        self.open_group_page(group_id)
+        wd.find_element_by_css_selector("input[value='%s']" % contact_id).click()
+        wd.find_element_by_name("remove").click()
+        self.return_to_main_page()
+        self.visible_all_contact()
+
+    def open_group_page(self, group_id):
+        wd = self.app.wd
+        wd.find_element_by_name("group")
+        wd.find_element_by_xpath("//option[@value='%s']" % group_id).click()
